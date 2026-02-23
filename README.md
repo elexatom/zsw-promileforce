@@ -9,3 +9,4 @@ Assemble a distance-measuring device using a Raspberry Pi Lite
 Implement software on the Raspberry Pi to read sensor data and transmit the measured values in real time via Bluetooth.
 Develop a simple mobile application
 Contact: Jan Rychlík; rychlikj@kiv.zcu.cz
+:)
