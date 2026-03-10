@@ -1,0 +1,16 @@
+# Visual Studio
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build výsledky (Tohle je mega důležité!)
+[Bb]in/
+[Oo]bj/
+
+# Mac a systémové soubory (pro jistotu)
+.DS_Store
+Thumbs.db
+
+# MAUI specifické
+*.appiconset/
