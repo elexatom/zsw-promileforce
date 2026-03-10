@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RangerFinder")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+8c417b5626472aee8dac37b691377171efd225e8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+f6b9c6dc6b9cce13d3c2c5948e951fd3d3582a0e")]
 [assembly: System.Reflection.AssemblyProductAttribute("RangerFinder")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RangerFinder")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
