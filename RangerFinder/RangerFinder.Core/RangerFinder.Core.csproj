@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Plugin.BLE" Version="3.2.0" />
+  </ItemGroup>
+
 </Project>
