@@ -39,7 +39,7 @@ func InitBLE() {
 	err = adv.Configure(bluetooth.AdvertisementOptions{
 		LocalName: "SensorStation",
 	})
-	
+
 	if err != nil {
 		log.Fatalf("Failed to configure advertisement: %v", err)
 	}
