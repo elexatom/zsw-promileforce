@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using RangerFinder.Core.Services;
+using RangerFinder.ViewModels;
 
 namespace RangerFinder
 {
@@ -14,9 +16,12 @@ namespace RangerFinder
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+            builder.Services.AddSingleton<IBluetoothService, MockBluetoothService>();
+            builder.Services.AddTransient<MainViewModel>();
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
+
 #endif
 
             return builder.Build();

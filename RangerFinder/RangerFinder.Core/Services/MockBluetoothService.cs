@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RangerFinder.Core.Services
 {
-    internal class MockBluetoothService : IBluetoothService
+    public class MockBluetoothService : IBluetoothService
     {
         public event EventHandler<SensorData> SensorDataReceived;
         private bool _isconnected;

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RangerFinder.Core.Services
 {
-    internal interface IBluetoothService
+    public interface IBluetoothService
     {
         event EventHandler<SensorData> SensorDataReceived;
 
