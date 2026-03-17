@@ -1,0 +1,10 @@
+github.com/d2r2/go-i2c v0.0.0-20191123181816-73a8a799d6bc h1:HLRSIWzUGMLCq4ldt0W1GLs3nnAxa5EGoP+9qHgh6j0=
+github.com/d2r2/go-i2c v0.0.0-20191123181816-73a8a799d6bc/go.mod h1:AwxDPnsgIpy47jbGXZHA9Rv7pDkOJvQbezPuK1Y+nNk=
+github.com/d2r2/go-logger v0.0.0-20210606094344-60e9d1233e22 h1:nO+SY4KOMsF/LsZ5EtbSKhiT3M6sv/igo2PEru/xEHI=
+github.com/d2r2/go-logger v0.0.0-20210606094344-60e9d1233e22/go.mod h1:eSx+YfcVy5vCjRZBNIhpIpfCGFMQ6XSOSQkDk7+VCpg=
+github.com/d2r2/go-vl53l0x v0.0.0-20181222171112-cfe65673d111 h1:0rHywTOJikliG0Xz9Iil9+54DZ12qUmSvLcKOIgd/rU=
+github.com/d2r2/go-vl53l0x v0.0.0-20181222171112-cfe65673d111/go.mod h1:HdavqXJE5ZXc7quR0kwoEWiumveGLw3T3o52x5KG/rs=
+github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
+github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/stianeikeland/go-rpio/v4 v4.6.0 h1:eAJgtw3jTtvn/CqwbC82ntcS+dtzUTgo5qlZKe677EY=
+github.com/stianeikeland/go-rpio/v4 v4.6.0/go.mod h1:A3GvHxC1Om5zaId+HqB3HKqx4K/AqeckxB7qRjxMK7o=
