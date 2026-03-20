@@ -6,6 +6,9 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"os/signal"
+	"syscall"
 	"time"
 
 	"github.com/d2r2/go-logger"
@@ -26,6 +29,12 @@ func main() {
 
 	fmt.Println("[INFO] Log level set to INFO for i2c and vl53l0x packages.")
 
+	err = InitCrypto()
+	if err != nil {
+		fmt.Println("[ERROR] Failed to initialize crypto:", err)
+		return
+	}
+
 	// data storage
 	data := &SensorData{}
 
@@ -38,13 +47,24 @@ func main() {
 	fmt.Println("[INFO] Sensor modules started.")
 
 	// main loop
-	for {
-		payload := data.GetJSON() // get data
+	go func() {
+		for {
+			payload := data.GetJSON() // get data
 
-		fmt.Printf("[%s] %s\n", time.Now().Format("15:04:05"), payload)
+			fmt.Printf("[%s] %s\n", time.Now().Format("15:04:05"), payload)
 
-		SendData(payload) // send data
+			encryptedPayload := Encrypt(payload)
 
-		time.Sleep(200 * time.Millisecond)
-	}
+			SendData(encryptedPayload) // send data
+
+			time.Sleep(200 * time.Millisecond)
+		}
+	}()
+
+	// wait for main loop to finish and do cleanup
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	<-quit
+
+	fmt.Println("[INFO] Exiting Sensor Station...")
 }
