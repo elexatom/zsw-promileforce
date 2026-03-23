@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using RangerFinder.Core.Services;
 using RangerFinder.ViewModels;
 
@@ -18,6 +18,7 @@ namespace RangerFinder
                 });
             builder.Services.AddSingleton<IBluetoothService, MockBluetoothService>();
             builder.Services.AddTransient<MainViewModel>();
+            builder.Services.AddTransient<MainPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using RangerFinder.Core.Services;
@@ -11,6 +11,8 @@ namespace RangerFinder.ViewModels
     public partial class MainViewModel : ObservableObject
     {
         private readonly IBluetoothService _bluetoothService;
+
+        public System.Collections.ObjectModel.ObservableCollection<SensorData> SensorHistory { get; } = new();
 
         [ObservableProperty]
         private SensorData _currentData;
@@ -45,6 +47,11 @@ namespace RangerFinder.ViewModels
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 CurrentData = e;
+                SensorHistory.Add(e);
+                if (SensorHistory.Count > 100)
+                {
+                    SensorHistory.RemoveAt(0);
+                }
             });
         }
     }
