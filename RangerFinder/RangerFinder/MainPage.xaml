@@ -11,40 +11,40 @@
                 <Frame BackgroundColor="#ffebee" Padding="10" CornerRadius="8">
                     <HorizontalStackLayout Spacing="10">
                         <BoxView Color="Red" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
-                        <Label Text="Ultrasonic 1:" VerticalOptions="Center" FontAttributes="Bold"/>
-                        <Label Text="{Binding CurrentData.Ultrasonic1, TargetNullValue='0', StringFormat='{0} m'}" VerticalOptions="Center" />
+                        <Label Text="Ultrasonic 1:" VerticalOptions="Center" FontAttributes="Bold" TextColor="Black"/>
+                        <Label Text="{Binding CurrentData.Ultrasonic1, TargetNullValue='0', StringFormat='{0} m'}" VerticalOptions="Center" TextColor="Black"/>
                     </HorizontalStackLayout>
                 </Frame>
                 <!-- Ultrasonic 2 -->
                 <Frame BackgroundColor="#e3f2fd" Padding="10" CornerRadius="8">
                     <HorizontalStackLayout Spacing="10">
                         <BoxView Color="Blue" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
-                        <Label Text="Ultrasonic 2:" VerticalOptions="Center" FontAttributes="Bold"/>
-                        <Label Text="{Binding CurrentData.Ultrasonic2, TargetNullValue='0', StringFormat='{0} m'}" VerticalOptions="Center" />
+                        <Label Text="Ultrasonic 2:" VerticalOptions="Center" FontAttributes="Bold" TextColor="Black"/>
+                        <Label Text="{Binding CurrentData.Ultrasonic2, TargetNullValue='0', StringFormat='{0} m'}" VerticalOptions="Center" TextColor="Black"/>
                     </HorizontalStackLayout>
                 </Frame>
                 <!-- Lidar 1 -->
                 <Frame BackgroundColor="#e8f5e9" Padding="10" CornerRadius="8">
                     <HorizontalStackLayout Spacing="10">
                         <BoxView Color="Green" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
-                        <Label Text="Lidar 1:" VerticalOptions="Center" FontAttributes="Bold"/>
-                        <Label Text="{Binding CurrentData.Lidar1, TargetNullValue='0', StringFormat='{0} m'}" VerticalOptions="Center" />
+                        <Label Text="Lidar 1:" VerticalOptions="Center" FontAttributes="Bold" TextColor="Black"/>
+                        <Label Text="{Binding CurrentData.Lidar1, TargetNullValue='0', StringFormat='{0} m'}" VerticalOptions="Center" TextColor="Black"/>
                     </HorizontalStackLayout>
                 </Frame>
                 <!-- Lidar 2 -->
                 <Frame BackgroundColor="#fff3e0" Padding="10" CornerRadius="8">
                     <HorizontalStackLayout Spacing="10">
                         <BoxView Color="Orange" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
-                        <Label Text="Lidar 2:" VerticalOptions="Center" FontAttributes="Bold"/>
-                        <Label Text="{Binding CurrentData.Lidar2, TargetNullValue='0', StringFormat='{0} m'}" VerticalOptions="Center" />
+                        <Label Text="Lidar 2:" VerticalOptions="Center" FontAttributes="Bold" TextColor="Black"/>
+                        <Label Text="{Binding CurrentData.Lidar2, TargetNullValue='0', StringFormat='{0} m'}" VerticalOptions="Center" TextColor="Black"/>
                     </HorizontalStackLayout>
                 </Frame>
                 <!-- Obstacle -->
                 <Frame BackgroundColor="#f3e5f5" Padding="10" CornerRadius="8">
                     <HorizontalStackLayout Spacing="10">
                         <BoxView Color="Purple" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
-                        <Label Text="Obstacle:" VerticalOptions="Center" FontAttributes="Bold"/>
-                        <Label Text="{Binding CurrentData.Obstacle, TargetNullValue='0', StringFormat='{0} m'}" VerticalOptions="Center" />
+                        <Label Text="Obstacle:" VerticalOptions="Center" FontAttributes="Bold" TextColor="Black"/>
+                        <Label Text="{Binding CurrentData.Obstacle, TargetNullValue='0', StringFormat='{0} m'}" VerticalOptions="Center" TextColor="Black"/>
                     </HorizontalStackLayout>
                 </Frame>
             </VerticalStackLayout>
@@ -56,14 +56,14 @@
         </Frame>
 
         <!-- Bottom Bar -->
-        <Grid Grid.Row="2" ColumnDefinitions="*, Auto" Padding="5">
-            <Slider Grid.Column="0" VerticalOptions="Center" Minimum="0" Maximum="100" />
+        <Grid Grid.Row="2" ColumnDefinitions="*, Auto" Padding="5" ColumnSpacing="15">
+            <Button Grid.Column="0" Text="|&lt;---&gt;| Průměry" Command="{Binding OpenDetailsCommand}" VerticalOptions="Center" CornerRadius="8" />
             
             <ImageButton Grid.Column="1" 
                          Source="dotnet_bot.png" 
                          WidthRequest="40" 
                          HeightRequest="40" 
-                         Margin="10,0,0,0" />
+                         Command="{Binding OpenSettingsCommand}" />
         </Grid>
     </Grid>
 

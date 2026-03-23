@@ -11,8 +11,8 @@
         
         <Frame BackgroundColor="#f3e5f5" Padding="20" CornerRadius="12" HasShadow="True">
             <VerticalStackLayout Spacing="10">
-                <Label Text="Current Measurement" FontSize="18" TextColor="Gray" HorizontalOptions="Center"/>
-                <Label Text="{Binding CurrentData.Obstacle, TargetNullValue='0', StringFormat='{0:F2} m'}" 
+                <Label Text="Average Measurement" FontSize="18" TextColor="Gray" HorizontalOptions="Center"/>
+                <Label Text="{Binding AverageObstacle, TargetNullValue='0', StringFormat='{0:F2} m'}" 
                        FontSize="36" FontAttributes="Bold" TextColor="Purple" HorizontalOptions="Center"/>
             </VerticalStackLayout>
         </Frame>

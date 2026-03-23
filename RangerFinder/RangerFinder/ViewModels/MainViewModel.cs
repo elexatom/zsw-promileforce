@@ -20,6 +20,8 @@ namespace RangerFinder.ViewModels
         [ObservableProperty]
         private string _connectionStatus = "Disconnected";
 
+        public double AverageObstacle => SensorHistory.Count == 0 ? 0 : SensorHistory.Average(s => s.Obstacle);
+
         public MainViewModel(IBluetoothService bluetoothService)
         {
             _bluetoothService = bluetoothService;
@@ -69,6 +71,7 @@ namespace RangerFinder.ViewModels
                 {
                     SensorHistory.RemoveAt(0);
                 }
+                OnPropertyChanged(nameof(AverageObstacle));
             });
         }
     }
