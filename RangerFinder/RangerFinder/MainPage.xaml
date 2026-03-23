@@ -59,11 +59,16 @@
         <Grid Grid.Row="2" ColumnDefinitions="*, Auto" Padding="5" ColumnSpacing="15">
             <Button Grid.Column="0" Text="|&lt;---&gt;| Průměry" Command="{Binding OpenDetailsCommand}" VerticalOptions="Center" CornerRadius="8" />
             
-            <ImageButton Grid.Column="1" 
-                         Source="dotnet_bot.png" 
-                         WidthRequest="40" 
-                         HeightRequest="40" 
-                         Command="{Binding OpenSettingsCommand}" />
+            <Button Grid.Column="1" 
+                    Text="⚙️" 
+                    FontSize="24"
+                    WidthRequest="50" 
+                    HeightRequest="50" 
+                    CornerRadius="25"
+                    Padding="0"
+                    BackgroundColor="#e0e0e0"
+                    TextColor="Black"
+                    Command="{Binding OpenSettingsCommand}" />
         </Grid>
     </Grid>
 
