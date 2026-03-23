@@ -37,9 +37,26 @@ namespace RangerFinder.ViewModels
         [RelayCommand]
         private async Task DisconnectAsync()
         {
-
             await _bluetoothService.DisconnectAsync();
             ConnectionStatus = "Disconnected";
+        }
+
+        [RelayCommand]
+        private async Task OpenSettingsAsync()
+        {
+            await Shell.Current.GoToAsync(nameof(DebugPage));
+        }
+
+        [RelayCommand]
+        private async Task OpenDetailsAsync()
+        {
+            await Shell.Current.GoToAsync(nameof(DetailsPage));
+        }
+
+        [RelayCommand]
+        private async Task GoBackAsync()
+        {
+            await Shell.Current.GoToAsync("..");
         }
 
         private void OnSensorDataReceived(object sender, SensorData e)
