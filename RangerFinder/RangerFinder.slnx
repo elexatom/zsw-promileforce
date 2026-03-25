@@ -1,3 +1,6 @@
 <Solution>
-  <Project Path="RangerFinder/RangerFinder.csproj" />
+  <Project Path="RangerFinder.Core/RangerFinder.Core.csproj" Id="34ce9fa5-a8c1-4998-b16b-cdbf146b4b49" />
+  <Project Path="RangerFinder/RangerFinder.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
 </Solution>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:RangerFinder.ViewModels"
+             x:Class="RangerFinder.DebugPage"
+             x:DataType="vm:MainViewModel"
+             Title="Debug Console">
+    
+    <Grid RowDefinitions="Auto, *, Auto" Padding="10">
+        <HorizontalStackLayout Grid.Row="0" Spacing="10">
+            <Label Text="Connection Status:" FontAttributes="Bold" FontSize="18"/>
+            <Label Text="{Binding ConnectionStatus}" FontSize="18" TextColor="Blue"/>
+        </HorizontalStackLayout>
+        
+        <Frame Grid.Row="1" BackgroundColor="#1e1e1e" CornerRadius="8" Padding="10" Margin="0,10">
+            <ScrollView>
+                <Label Text="{Binding CurrentData, StringFormat='Raw Model: {0}'}" TextColor="Lime" FontFamily="Consolas" />
+            </ScrollView>
+        </Frame>
+
+        <HorizontalStackLayout Grid.Row="2" Spacing="10" HorizontalOptions="Center">
+            <Button Text="Connect" Command="{Binding ConnectCommand}" />
+            <Button Text="Disconnect" Command="{Binding DisconnectCommand}" />
+            <Button Text="Close" Command="{Binding GoBackCommand}" />
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>

@@ -1,24 +1,30 @@
-﻿namespace RangerFinder
+using RangerFinder.ViewModels;
+
+namespace RangerFinder
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
+        private SensorChartDrawable _chartDrawable;
+        private MainViewModel _viewModel;
 
-        public MainPage()
+        public MainPage(MainViewModel viewModel)
         {
             InitializeComponent();
-        }
+            
+            _viewModel = viewModel;
+            BindingContext = _viewModel;
 
-        private void OnCounterClicked(object? sender, EventArgs e)
-        {
-            count++;
+            _chartDrawable = new SensorChartDrawable();
+            _chartDrawable.History = _viewModel.SensorHistory;
+            ChartGraphicsView.Drawable = _chartDrawable;
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            _viewModel.PropertyChanged += (s, e) => 
+            {
+                if (e.PropertyName == nameof(MainViewModel.CurrentData))
+                {
+                    ChartGraphicsView.Invalidate();
+                }
+            };
         }
     }
 }
