@@ -75,4 +75,10 @@
 	  <ProjectReference Include="..\RangerFinder.Core\RangerFinder.Core.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="AppShell.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

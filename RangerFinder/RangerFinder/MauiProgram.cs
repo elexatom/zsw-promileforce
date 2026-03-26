@@ -17,6 +17,7 @@ namespace RangerFinder
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
             builder.Services.AddSingleton<IBluetoothService, MockBluetoothService>();
+            builder.Services.AddSingleton<AppShell>();
             builder.Services.AddTransient<MainViewModel>();
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<DetailsPage>();
