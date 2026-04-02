@@ -1,4 +1,4 @@
-﻿using RangerFinder.Core.Models;
+using RangerFinder.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,20 +10,17 @@ namespace RangerFinder.Core.Services
         public event EventHandler<SensorData> SensorDataReceived;
         private bool _isconnected;
 
-        public async Task ConnectAsync()
+        public Task ConnectAsync()
         {
             _isconnected = true;
-
-            _ = CreateRandom();
-
-            await Task.CompletedTask;
+            _ = Task.Run(CreateRandom);
+            return Task.CompletedTask;
         }
 
-        public async Task DisconnectAsync()
+        public Task DisconnectAsync()
         {
             _isconnected = false;
-
-            await Task.CompletedTask;
+            return Task.CompletedTask;
         }
 
         private async Task CreateRandom()
@@ -31,16 +28,19 @@ namespace RangerFinder.Core.Services
             var random = new Random();
             while (_isconnected)
             {
+                // Generuj data (0.0 az 5.0 metru)
                 var data = new SensorData(
-                    random.Next(1, 25),
-                    random.Next(1, 25),
-                    random.Next(1, 25),
-                    random.Next(1, 25),
-                    random.Next(1, 2)
+                    random.NextDouble() * 5.0,
+                    random.NextDouble() * 5.0,
+                    random.NextDouble() * 5.0,
+                    random.NextDouble() * 5.0,
+                    random.NextDouble() * 5.0
                 );
-            }
 
-            await Task.Delay(1000);
+                SensorDataReceived?.Invoke(this, data);
+
+                await Task.Delay(200); // 5 refreshes par sekund pro cistsi vizual
+            }
         }
     }
 }
