@@ -2,10 +2,10 @@ namespace RangerFinder
 {
     public partial class App : Application
     {
-        public App(AppShell appShell)
+        public App(IServiceProvider services)
         {
             InitializeComponent();
-            MainPage = appShell;
+            MainPage = services.GetService<AppShell>();
         }
     }
 }

@@ -3,5 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RangerFinder.App">
     <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Primary">#00daf3</Color>
+            <Color x:Key="Secondary">#48ddbc</Color>
+            <Color x:Key="Tertiary">#00e1ae</Color>
+            
+            <Color x:Key="Background">#121416</Color>
+            <Color x:Key="Surface">#121416</Color>
+            <Color x:Key="SurfaceContainerLow">#1a1c1e</Color>
+            <Color x:Key="SurfaceContainerHighest">#333537</Color>
+            <Color x:Key="SurfaceContainerHighestAlpha">#33333537</Color>
+            
+            <Color x:Key="OnSurface">#e2e2e5</Color>
+            <Color x:Key="OnSurfaceVariant">#c1c6d7</Color>
+            <Color x:Key="Outline">#8b90a0</Color>
+            <Color x:Key="OutlineVariant">#414754</Color>
+            <Color x:Key="Error">#ffb4ab</Color>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

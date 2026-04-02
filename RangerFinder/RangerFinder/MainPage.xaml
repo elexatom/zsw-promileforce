@@ -1,75 +1,142 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RangerFinder.MainPage">
+             xmlns:vm="clr-namespace:RangerFinder.ViewModels"
+             xmlns:models="clr-namespace:RangerFinder.Core.Models;assembly=RangerFinder.Core"
+             x:Class="RangerFinder.MainPage"
+             x:DataType="vm:MainViewModel"
+             BackgroundColor="{StaticResource Background}">
+             
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="24">
+            
+            <!-- Header Section -->
+            <VerticalStackLayout Spacing="4" Padding="16,0,0,0">
+                <BoxView WidthRequest="2" Color="{StaticResource Primary}" 
+                         HorizontalOptions="Start" VerticalOptions="Fill" Margin="-16,0,0,0" />
+                <Label Text="ADVANCED TELEMETRY" FontSize="24" FontAttributes="Bold" 
+                       CharacterSpacing="1" TextColor="{StaticResource OnSurface}" />
+                <Label Text="SESS_ID: 4492-XRAY" FontSize="10" CharacterSpacing="2"
+                       TextColor="{StaticResource Outline}" TextTransform="Uppercase" />
+            </VerticalStackLayout>
+            
+            <!-- Chart Area -->
+            <Frame BackgroundColor="{StaticResource SurfaceContainerLow}" HasShadow="False"
+                   CornerRadius="8" Padding="24" BorderColor="Transparent">
+                <VerticalStackLayout Spacing="16">
+                    <Grid>
+                        <VerticalStackLayout HorizontalOptions="Start">
+                            <Label Text="SPATIAL ANALYSIS" FontSize="12" FontAttributes="Bold" 
+                                   CharacterSpacing="2" TextColor="{StaticResource OnSurfaceVariant}" />
+                            <Label Text="Real-time distance delta" FontSize="9" CharacterSpacing="2"
+                                   TextColor="{StaticResource Outline}" TextTransform="Uppercase" />
+                        </VerticalStackLayout>
+                    </Grid>
+                    <!-- Actual GraphicsView -->
+                    <Frame BorderColor="{StaticResource OutlineVariant}" BackgroundColor="Transparent" 
+                           HasShadow="False" CornerRadius="4" Padding="0" HeightRequest="200">
+                        <GraphicsView x:Name="ChartGraphicsView" />
+                    </Frame>
+                </VerticalStackLayout>
+            </Frame>
+            
+            <!-- Sensor Readings -->
+            <VerticalStackLayout Spacing="16">
+                <!-- HC-SR04 -->
+                <Frame BackgroundColor="{StaticResource SurfaceContainerHighest}" 
+                       CornerRadius="8" Padding="20" BorderColor="Transparent">
+                    <Grid>
+                        <BoxView Color="{StaticResource Tertiary}" WidthRequest="4" 
+                                 HorizontalOptions="Start" VerticalOptions="Fill" Margin="-20,-20,0,-20"/>
+                        <VerticalStackLayout Spacing="12">
+                            <Grid>
+                                <Label Text="HC-SR04 ULTRASONIC" FontSize="10" CharacterSpacing="2" 
+                                       TextColor="{StaticResource Outline}" HorizontalOptions="Start" />
+                                <Frame BackgroundColor="{StaticResource SurfaceContainerHighestAlpha}" Padding="8,4" 
+                                       CornerRadius="4" HorizontalOptions="End" BorderColor="Transparent">
+                                    <Label Text="STABLE" FontSize="10" TextColor="{StaticResource Tertiary}" />
+                                </Frame>
+                            </Grid>
+                            <HorizontalStackLayout Spacing="4" VerticalOptions="End">
+                                <Label Text="{Binding CurrentData.Ultrasonic1, TargetNullValue='0.0', StringFormat='{0:F1}'}" 
+                                       FontSize="32" FontAttributes="Bold" TextColor="{StaticResource OnSurface}" />
+                                <Label Text="M" FontSize="12" TextColor="{StaticResource Outline}" VerticalOptions="End" Margin="0,0,0,6"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Frame>
+                
+                <!-- Waveshare Laser -->
+                <Frame BackgroundColor="{StaticResource SurfaceContainerHighest}" 
+                       CornerRadius="8" Padding="20" BorderColor="Transparent">
+                    <Grid>
+                        <BoxView Color="{StaticResource Secondary}" WidthRequest="4" 
+                                 HorizontalOptions="Start" VerticalOptions="Fill" Margin="-20,-20,0,-20"/>
+                        <VerticalStackLayout Spacing="12">
+                            <Grid>
+                                <Label Text="WAVESHARE LASER" FontSize="10" CharacterSpacing="2" 
+                                       TextColor="{StaticResource Outline}" HorizontalOptions="Start" />
+                                <Frame BackgroundColor="{StaticResource SurfaceContainerHighestAlpha}" Padding="8,4" 
+                                       CornerRadius="4" HorizontalOptions="End" BorderColor="Transparent">
+                                    <Label Text="SCANNING" FontSize="10" TextColor="{StaticResource Secondary}" />
+                                </Frame>
+                            </Grid>
+                            <HorizontalStackLayout Spacing="4" VerticalOptions="End">
+                                <Label Text="{Binding CurrentData.Lidar2, TargetNullValue='0.00', StringFormat='{0:F2}'}" 
+                                       FontSize="32" FontAttributes="Bold" TextColor="{StaticResource OnSurface}" />
+                                <Label Text="M" FontSize="12" TextColor="{StaticResource Outline}" VerticalOptions="End" Margin="0,0,0,6"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Frame>
 
-    <Grid RowDefinitions="*, 2*, Auto" Padding="10">
-        <!-- Sensor Legend / Current Values -->
-        <ScrollView Grid.Row="0">
-            <VerticalStackLayout Spacing="10">
-                <!-- Ultrasonic 1 -->
-                <Frame BackgroundColor="#ffebee" Padding="10" CornerRadius="8">
-                    <HorizontalStackLayout Spacing="10">
-                        <BoxView Color="Red" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
-                        <Label Text="Ultrasonic 1:" VerticalOptions="Center" FontAttributes="Bold" TextColor="Black"/>
-                        <Label Text="{Binding CurrentData.Ultrasonic1, TargetNullValue='0', StringFormat='{0} m'}" VerticalOptions="Center" TextColor="Black"/>
-                    </HorizontalStackLayout>
-                </Frame>
-                <!-- Ultrasonic 2 -->
-                <Frame BackgroundColor="#e3f2fd" Padding="10" CornerRadius="8">
-                    <HorizontalStackLayout Spacing="10">
-                        <BoxView Color="Blue" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
-                        <Label Text="Ultrasonic 2:" VerticalOptions="Center" FontAttributes="Bold" TextColor="Black"/>
-                        <Label Text="{Binding CurrentData.Ultrasonic2, TargetNullValue='0', StringFormat='{0} m'}" VerticalOptions="Center" TextColor="Black"/>
-                    </HorizontalStackLayout>
-                </Frame>
-                <!-- Lidar 1 -->
-                <Frame BackgroundColor="#e8f5e9" Padding="10" CornerRadius="8">
-                    <HorizontalStackLayout Spacing="10">
-                        <BoxView Color="Green" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
-                        <Label Text="Lidar 1:" VerticalOptions="Center" FontAttributes="Bold" TextColor="Black"/>
-                        <Label Text="{Binding CurrentData.Lidar1, TargetNullValue='0', StringFormat='{0} m'}" VerticalOptions="Center" TextColor="Black"/>
-                    </HorizontalStackLayout>
-                </Frame>
-                <!-- Lidar 2 -->
-                <Frame BackgroundColor="#fff3e0" Padding="10" CornerRadius="8">
-                    <HorizontalStackLayout Spacing="10">
-                        <BoxView Color="Orange" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
-                        <Label Text="Lidar 2:" VerticalOptions="Center" FontAttributes="Bold" TextColor="Black"/>
-                        <Label Text="{Binding CurrentData.Lidar2, TargetNullValue='0', StringFormat='{0} m'}" VerticalOptions="Center" TextColor="Black"/>
-                    </HorizontalStackLayout>
-                </Frame>
-                <!-- Obstacle -->
-                <Frame BackgroundColor="#f3e5f5" Padding="10" CornerRadius="8">
-                    <HorizontalStackLayout Spacing="10">
-                        <BoxView Color="Purple" WidthRequest="20" HeightRequest="20" CornerRadius="10"/>
-                        <Label Text="Obstacle:" VerticalOptions="Center" FontAttributes="Bold" TextColor="Black"/>
-                        <Label Text="{Binding CurrentData.Obstacle, TargetNullValue='0', StringFormat='{0} m'}" VerticalOptions="Center" TextColor="Black"/>
-                    </HorizontalStackLayout>
+                <!-- VL53LDK ToF -->
+                <Frame BackgroundColor="{StaticResource SurfaceContainerHighest}" 
+                       CornerRadius="8" Padding="20" BorderColor="Transparent">
+                    <Grid>
+                        <BoxView Color="{StaticResource Primary}" WidthRequest="4" 
+                                 HorizontalOptions="Start" VerticalOptions="Fill" Margin="-20,-20,0,-20"/>
+                        <VerticalStackLayout Spacing="12">
+                            <Grid>
+                                <Label Text="VL53LDK TOF" FontSize="10" CharacterSpacing="2" 
+                                       TextColor="{StaticResource Outline}" HorizontalOptions="Start" />
+                                <Frame BackgroundColor="{StaticResource SurfaceContainerHighestAlpha}" Padding="8,4" 
+                                       CornerRadius="4" HorizontalOptions="End" BorderColor="Transparent">
+                                    <Label Text="HIGH PRECISION" FontSize="10" TextColor="{StaticResource Primary}" />
+                                </Frame>
+                            </Grid>
+                            <HorizontalStackLayout Spacing="4" VerticalOptions="End">
+                                <Label Text="{Binding CurrentData.Lidar1, TargetNullValue='0000', StringFormat='{0:F3}'}" 
+                                       FontSize="32" FontAttributes="Bold" TextColor="{StaticResource OnSurface}" />
+                                <Label Text="M" FontSize="12" TextColor="{StaticResource Outline}" VerticalOptions="End" Margin="0,0,0,6"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Grid>
                 </Frame>
             </VerticalStackLayout>
-        </ScrollView>
-
-        <!-- Chart Area -->
-        <Frame Grid.Row="1" BorderColor="Gray" HasShadow="False" CornerRadius="8" Padding="0" Margin="0,10">
-            <GraphicsView x:Name="ChartGraphicsView" />
-        </Frame>
-
-        <!-- Bottom Bar -->
-        <Grid Grid.Row="2" ColumnDefinitions="*, Auto" Padding="5" ColumnSpacing="15">
-            <Button Grid.Column="0" Text="|&lt;---&gt;| Průměry" Command="{Binding OpenDetailsCommand}" VerticalOptions="Center" CornerRadius="8" />
             
-            <Button Grid.Column="1" 
-                    Text="⚙️" 
-                    FontSize="24"
-                    WidthRequest="50" 
-                    HeightRequest="50" 
-                    CornerRadius="25"
-                    Padding="0"
-                    BackgroundColor="#e0e0e0"
-                    TextColor="Black"
-                    Command="{Binding OpenSettingsCommand}" />
-        </Grid>
-    </Grid>
-
+            <!-- Terminal -->
+            <Frame BackgroundColor="{StaticResource SurfaceContainerLow}" 
+                   HasShadow="False" CornerRadius="8" Padding="0" BorderColor="Transparent" HeightRequest="200">
+                <Grid RowDefinitions="Auto, *">
+                    <Grid Grid.Row="0" BackgroundColor="{StaticResource SurfaceContainerHighest}" Padding="16,8">
+                        <Label Text="SYSTEM LOG &amp; RAW DEBUG" FontSize="10" FontAttributes="Bold" 
+                               CharacterSpacing="2" TextColor="{StaticResource OnSurface}" VerticalOptions="Center"/>
+                        <HorizontalStackLayout HorizontalOptions="End" Spacing="8" VerticalOptions="Center">
+                            <BoxView Color="{StaticResource Error}" WidthRequest="8" HeightRequest="8" CornerRadius="4" />
+                            <BoxView Color="{StaticResource Secondary}" WidthRequest="8" HeightRequest="8" CornerRadius="4" />
+                        </HorizontalStackLayout>
+                    </Grid>
+                    <CollectionView Grid.Row="1" ItemsSource="{Binding SensorHistory}" Margin="16">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:SensorData">
+                                <Label Text="{Binding Obstacle, StringFormat='[RX_PKT] OBS: {0:F2}m | LIDAR1: {1:F2}m'}" 
+                                       FontSize="10" TextColor="{StaticResource OnSurfaceVariant}" Margin="0,2" />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

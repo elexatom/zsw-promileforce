@@ -4,24 +4,101 @@
              xmlns:vm="clr-namespace:RangerFinder.ViewModels"
              x:Class="RangerFinder.DebugPage"
              x:DataType="vm:MainViewModel"
-             Title="Debug Console">
-    
-    <Grid RowDefinitions="Auto, *, Auto" Padding="10">
-        <HorizontalStackLayout Grid.Row="0" Spacing="10">
-            <Label Text="Connection Status:" FontAttributes="Bold" FontSize="18"/>
-            <Label Text="{Binding ConnectionStatus}" FontSize="18" TextColor="Blue"/>
-        </HorizontalStackLayout>
-        
-        <Frame Grid.Row="1" BackgroundColor="#1e1e1e" CornerRadius="8" Padding="10" Margin="0,10">
-            <ScrollView>
-                <Label Text="{Binding CurrentData, StringFormat='Raw Model: {0}'}" TextColor="Lime" FontFamily="Consolas" />
-            </ScrollView>
-        </Frame>
+             BackgroundColor="{StaticResource Background}">
+             
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="24">
+            
+            <!-- Connection Cards -->
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="16">
+                <!-- System Connection -->
+                <Frame Grid.Column="0" BackgroundColor="{StaticResource SurfaceContainerLow}" 
+                       HasShadow="False" CornerRadius="8" Padding="16" BorderColor="Transparent" HeightRequest="120">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="SYSTEM CONNECTION" FontSize="8" CharacterSpacing="2" 
+                               TextColor="{StaticResource Outline}" />
+                        <Label Text="{Binding ConnectionStatus, TargetNullValue='Disconnected'}" 
+                               FontSize="16" FontAttributes="Bold" TextColor="{StaticResource Primary}" TextTransform="Uppercase"/>
+                        <Label Text="SECURE_BLE_CHANNEL_01" FontSize="8" CharacterSpacing="1"
+                               TextColor="{StaticResource Outline}" TextTransform="Uppercase" VerticalOptions="EndAndExpand"/>
+                    </VerticalStackLayout>
+                </Frame>
 
-        <HorizontalStackLayout Grid.Row="2" Spacing="10" HorizontalOptions="Center">
-            <Button Text="Connect" Command="{Binding ConnectCommand}" />
-            <Button Text="Disconnect" Command="{Binding DisconnectCommand}" />
-            <Button Text="Close" Command="{Binding GoBackCommand}" />
-        </HorizontalStackLayout>
-    </Grid>
+                <!-- Signal Strength -->
+                <Frame Grid.Column="1" BackgroundColor="{StaticResource SurfaceContainerLow}" 
+                       HasShadow="False" CornerRadius="8" Padding="16" BorderColor="Transparent" HeightRequest="120">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="SIGNAL STRENGTH" FontSize="8" CharacterSpacing="2" 
+                               TextColor="{StaticResource Outline}" />
+                        <HorizontalStackLayout Spacing="4">
+                            <Label Text="-42" FontSize="18" FontAttributes="Bold" TextColor="{StaticResource OnSurface}" />
+                            <Label Text="dBm" FontSize="10" TextColor="{StaticResource Outline}" VerticalOptions="End" Margin="0,0,0,3"/>
+                        </HorizontalStackLayout>
+                        <ProgressBar Progress="0.85" ProgressColor="{StaticResource Primary}" Margin="0,8,0,0"/>
+                        <Label Text="RSSI_OPTIMAL_STABLE" FontSize="8" CharacterSpacing="1"
+                               TextColor="{StaticResource Outline}" TextTransform="Uppercase" VerticalOptions="EndAndExpand"/>
+                    </VerticalStackLayout>
+                </Frame>
+            </Grid>
+
+            <!-- Scanning Hub -->
+            <Frame BackgroundColor="{StaticResource SurfaceContainerLow}" HasShadow="False"
+                   CornerRadius="8" Padding="0" BorderColor="Transparent">
+                <VerticalStackLayout>
+                    <Grid Padding="24,16" BackgroundColor="{StaticResource SurfaceContainerHighest}">
+                        <VerticalStackLayout HorizontalOptions="Start" VerticalOptions="Center">
+                            <Label Text="PERIPHERALS" FontSize="12" FontAttributes="Bold" 
+                                   CharacterSpacing="2" TextColor="{StaticResource OnSurface}" />
+                            <Label Text="SCANNING_ENVIRONMENT_FOR_BLE" FontSize="9" CharacterSpacing="1"
+                                   TextColor="{StaticResource Outline}" />
+                        </VerticalStackLayout>
+                        
+                        <!-- Connect Toggle Button -->
+                        <Button Text="TOGGLE CONNECTION" Command="{Binding ConnectCommand}" 
+                                BackgroundColor="{StaticResource Primary}" TextColor="{StaticResource Background}"
+                                FontSize="10" FontAttributes="Bold" CornerRadius="4" Padding="16,8" 
+                                HorizontalOptions="End" VerticalOptions="Center" />
+                    </Grid>
+                    
+                    <VerticalStackLayout Padding="8" Spacing="8">
+                        <Grid Padding="16" BackgroundColor="{StaticResource SurfaceContainerHighest}">
+                            <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
+                                <Frame BackgroundColor="{StaticResource SurfaceContainerHighestAlpha}" 
+                                       CornerRadius="24" HeightRequest="40" WidthRequest="40" Padding="0" BorderColor="Transparent">
+                                    <Label Text="⚙️" HorizontalOptions="Center" VerticalOptions="Center" />
+                                </Frame>
+                                <VerticalStackLayout VerticalOptions="Center">
+                                    <Label Text="RangeFinder_RPi_01" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource Primary}" />
+                                    <Label Text="{Binding ConnectionStatus, StringFormat='MAC: 00:1A:2B:3C:4D:5E • {0}'}" 
+                                           FontSize="9" TextColor="{StaticResource Outline}" TextTransform="Uppercase"/>
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                            <Button Text="DISCONNECT" Command="{Binding DisconnectCommand}" 
+                                    BackgroundColor="Transparent" TextColor="{StaticResource Error}"
+                                    BorderColor="{StaticResource Error}" BorderWidth="1"
+                                    FontSize="9" FontAttributes="Bold" CornerRadius="4" Padding="12,6" 
+                                    HorizontalOptions="End" VerticalOptions="Center" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+            
+            <!-- Terminal Output -->
+            <Frame BackgroundColor="{StaticResource SurfaceContainerLow}" 
+                   HasShadow="False" CornerRadius="8" Padding="0" BorderColor="Transparent" HeightRequest="150">
+                <Grid RowDefinitions="Auto, *">
+                    <Grid Grid.Row="0" BackgroundColor="{StaticResource SurfaceContainerHighest}" Padding="16,8">
+                        <Label Text="FIRMWARE TERMINAL" FontSize="10" FontAttributes="Bold" 
+                               CharacterSpacing="2" TextColor="{StaticResource OnSurface}" VerticalOptions="Center"/>
+                    </Grid>
+                    <!-- Dummy Debug display -->
+                    <ScrollView Grid.Row="1" Padding="16">
+                        <Label Text="{Binding CurrentData.Obstacle, StringFormat='SYSTEM_VERSION: v2.4.0-STABLE\nLAST_SYNC: 2023-11-24_08:44\nOBS VALUE: {0}'}" 
+                               FontSize="10" TextColor="{StaticResource Outline}" />
+                    </ScrollView>
+                </Grid>
+            </Frame>
+            
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
