@@ -18,7 +18,7 @@ namespace RangerFinder
                 });
             builder.Services.AddSingleton<IBluetoothService, MockBluetoothService>();
             builder.Services.AddSingleton<AppShell>();
-            builder.Services.AddTransient<MainViewModel>();
+            builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<DetailsPage>();
             builder.Services.AddTransient<DebugPage>();

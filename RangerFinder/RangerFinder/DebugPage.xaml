@@ -54,7 +54,7 @@
                         </VerticalStackLayout>
                         
                         <!-- Connect Toggle Button -->
-                        <Button Text="TOGGLE CONNECTION" Command="{Binding ConnectCommand}" 
+                        <Button Text="{Binding ConnectButtonText}" Command="{Binding ToggleConnectionCommand}" 
                                 BackgroundColor="{StaticResource Primary}" TextColor="{StaticResource Background}"
                                 FontSize="10" FontAttributes="Bold" CornerRadius="4" Padding="16,8" 
                                 HorizontalOptions="End" VerticalOptions="Center" />
@@ -74,6 +74,7 @@
                                 </VerticalStackLayout>
                             </HorizontalStackLayout>
                             <Button Text="DISCONNECT" Command="{Binding DisconnectCommand}" 
+                                    IsVisible="{Binding IsConnected}"
                                     BackgroundColor="Transparent" TextColor="{StaticResource Error}"
                                     BorderColor="{StaticResource Error}" BorderWidth="1"
                                     FontSize="9" FontAttributes="Bold" CornerRadius="4" Padding="12,6" 

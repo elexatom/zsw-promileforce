@@ -24,8 +24,14 @@
                     </Frame>
                     
                     <Label Text="{Binding ConnectionStatus, TargetNullValue='CLEAR'}" 
-                           FontSize="48" FontAttributes="Bold" TextColor="{StaticResource Tertiary}"
-                           HorizontalOptions="Center" />
+                           FontSize="48" FontAttributes="Bold" TextColor="Red"
+                           HorizontalOptions="Center">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding IsConnected}" Value="True">
+                                <Setter Property="TextColor" Value="Green" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
                     
                     <Label Text="All systems operational" FontSize="12" CharacterSpacing="1"
                            TextColor="{StaticResource OutlineVariant}" HorizontalOptions="Center"

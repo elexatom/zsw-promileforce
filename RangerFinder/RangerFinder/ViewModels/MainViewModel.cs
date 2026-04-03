@@ -20,6 +20,14 @@ namespace RangerFinder.ViewModels
         [ObservableProperty]
         private string _connectionStatus = "Disconnected";
 
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsNotConnected))]
+        [NotifyPropertyChangedFor(nameof(ConnectButtonText))]
+        private bool _isConnected;
+
+        public bool IsNotConnected => !IsConnected;
+        public string ConnectButtonText => IsConnected ? "DISCONNECT" : "CONNECT";
+
         public double AverageObstacle => SensorHistory.Count == 0 ? 0 : SensorHistory.Average(s => s.Obstacle);
 
         public MainViewModel(IBluetoothService bluetoothService)
@@ -29,11 +37,25 @@ namespace RangerFinder.ViewModels
         }
 
         [RelayCommand]
+        private async Task ToggleConnectionAsync()
+        {
+            if (IsConnected)
+            {
+                await DisconnectAsync();
+            }
+            else
+            {
+                await ConnectAsync();
+            }
+        }
+
+        [RelayCommand]
         private async Task ConnectAsync()
         {
             ConnectionStatus = "Connecting...";
             await _bluetoothService.ConnectAsync();
             ConnectionStatus = "Connected";
+            IsConnected = true;
         }
 
         [RelayCommand]
@@ -41,6 +63,7 @@ namespace RangerFinder.ViewModels
         {
             await _bluetoothService.DisconnectAsync();
             ConnectionStatus = "Disconnected";
+            IsConnected = false;
         }
 
         [RelayCommand]
