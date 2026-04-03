@@ -25,8 +25,13 @@ namespace RangerFinder.ViewModels
         [NotifyPropertyChangedFor(nameof(ConnectButtonText))]
         private bool _isConnected;
 
+        [ObservableProperty]
+        private bool _isScanning;
+
+        public System.Collections.ObjectModel.ObservableCollection<DiscoveredDevice> DiscoveredDevices { get; } = new();
+
         public bool IsNotConnected => !IsConnected;
-        public string ConnectButtonText => IsConnected ? "DISCONNECT" : "CONNECT";
+        public string ConnectButtonText => IsConnected ? "DISCONNECT" : (IsScanning ? "SCANNING..." : "CONNECT");
 
         public double AverageObstacle => SensorHistory.Count == 0 ? 0 : SensorHistory.Average(s => s.Obstacle);
 
@@ -45,8 +50,38 @@ namespace RangerFinder.ViewModels
             }
             else
             {
-                await ConnectAsync();
+                if (IsScanning)
+                {
+                    // TODO Backend: StopScanningAsync()
+                    IsScanning = false;
+                    OnPropertyChanged(nameof(ConnectButtonText));
+                    return;
+                }
+
+                IsScanning = true;
+                OnPropertyChanged(nameof(ConnectButtonText));
+                
+                DiscoveredDevices.Clear();
+                // Permanent fallback option
+                DiscoveredDevices.Add(new DiscoveredDevice { Name = "mock rpi0", MacAddress = "00:00:00:00:00:00", IsMock = true });
+
+                // TODO Backend: zavolat _bluetoothService.StartScanningAsync()
+                // TODO Backend: zaregistrovat event _bluetoothService.DeviceFound += OnDeviceFound
+                // A jakmile přijde event, udělat MainThread.BeginInvokeOnMainThread(() => DiscoveredDevices.Add(device));
             }
+        }
+
+        [RelayCommand]
+        private async Task SelectDeviceAsync(DiscoveredDevice device)
+        {
+            if (device == null) return;
+            
+            // TODO Backend: StopScanningAsync()
+            IsScanning = false;
+            OnPropertyChanged(nameof(ConnectButtonText));
+
+            // TODO Backend: upravit _bluetoothService.ConnectAsync() aby přijímalo device.MacAddress nebo device instanci
+            await ConnectAsync();
         }
 
         [RelayCommand]

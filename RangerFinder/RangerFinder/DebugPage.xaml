@@ -60,6 +60,29 @@
                                 HorizontalOptions="End" VerticalOptions="Center" />
                     </Grid>
                     
+                    <!-- Skenování BLE zařízení -->
+                    <CollectionView ItemsSource="{Binding DiscoveredDevices}" IsVisible="{Binding IsScanning}" Margin="0,16,0,0">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="vm:DiscoveredDevice">
+                                <Grid Padding="16" BackgroundColor="{StaticResource SurfaceContainerHighest}" Margin="8,0,8,8">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=SelectDeviceCommand}" CommandParameter="{Binding .}" />
+                                    </Grid.GestureRecognizers>
+                                    <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
+                                        <Frame BackgroundColor="{StaticResource SurfaceContainerHighestAlpha}" 
+                                               CornerRadius="24" HeightRequest="40" WidthRequest="40" Padding="0" BorderColor="Transparent">
+                                            <Label Text="📡" HorizontalOptions="Center" VerticalOptions="Center" />
+                                        </Frame>
+                                        <VerticalStackLayout VerticalOptions="Center">
+                                            <Label Text="{Binding Name}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource Primary}" />
+                                            <Label Text="{Binding MacAddress, StringFormat='MAC: {0}'}" FontSize="9" TextColor="{StaticResource Outline}" TextTransform="Uppercase"/>
+                                        </VerticalStackLayout>
+                                    </HorizontalStackLayout>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
                     <VerticalStackLayout Padding="8" Spacing="8">
                         <Grid Padding="16" BackgroundColor="{StaticResource SurfaceContainerHighest}">
                             <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
