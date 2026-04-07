@@ -15,7 +15,35 @@ namespace RangerFinder.ViewModels
         public System.Collections.ObjectModel.ObservableCollection<SensorData> SensorHistory { get; } = new();
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(MinDistance))]
+        [NotifyPropertyChangedFor(nameof(MaxDistance))]
         private SensorData _currentData;
+
+        public double MinDistance
+        {
+            get
+            {
+                if (CurrentData == null) return 0;
+                double min = CurrentData.Ultrasonic1;
+                if (CurrentData.Ultrasonic2 < min) min = CurrentData.Ultrasonic2;
+                if (CurrentData.Lidar1 < min) min = CurrentData.Lidar1;
+                if (CurrentData.Lidar2 < min) min = CurrentData.Lidar2;
+                return min;
+            }
+        }
+
+        public double MaxDistance
+        {
+            get
+            {
+                if (CurrentData == null) return 0;
+                double max = CurrentData.Ultrasonic1;
+                if (CurrentData.Ultrasonic2 > max) max = CurrentData.Ultrasonic2;
+                if (CurrentData.Lidar1 > max) max = CurrentData.Lidar1;
+                if (CurrentData.Lidar2 > max) max = CurrentData.Lidar2;
+                return max;
+            }
+        }
 
         [ObservableProperty]
         private string _connectionStatus = "Disconnected";
