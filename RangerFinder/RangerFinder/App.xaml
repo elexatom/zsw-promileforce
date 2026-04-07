@@ -7,6 +7,7 @@
             <Color x:Key="Primary">#00daf3</Color>
             <Color x:Key="Secondary">#48ddbc</Color>
             <Color x:Key="Tertiary">#00e1ae</Color>
+            <Color x:Key="Magenta">#d600aa</Color>
             
             <Color x:Key="Background">#121416</Color>
             <Color x:Key="Surface">#121416</Color>

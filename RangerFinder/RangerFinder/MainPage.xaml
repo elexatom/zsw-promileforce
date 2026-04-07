@@ -113,6 +113,54 @@
                         </VerticalStackLayout>
                     </Grid>
                 </Frame>
+
+                <!-- HC-SR04 Secondary -->
+                <Frame BackgroundColor="{StaticResource SurfaceContainerHighest}" 
+                       CornerRadius="8" Padding="20" BorderColor="Transparent">
+                    <Grid>
+                        <BoxView Color="{StaticResource Magenta}" WidthRequest="4" 
+                                 HorizontalOptions="Start" VerticalOptions="Fill" Margin="-20,-20,0,-20"/>
+                        <VerticalStackLayout Spacing="12">
+                            <Grid>
+                                <Label Text="SECONDARY ULTRASONIC" FontSize="10" CharacterSpacing="2" 
+                                       TextColor="{StaticResource Outline}" HorizontalOptions="Start" />
+                                <Frame BackgroundColor="{StaticResource SurfaceContainerHighestAlpha}" Padding="8,4" 
+                                       CornerRadius="4" HorizontalOptions="End" BorderColor="Transparent">
+                                    <Label Text="STABLE" FontSize="10" TextColor="{StaticResource Magenta}" />
+                                </Frame>
+                            </Grid>
+                            <HorizontalStackLayout Spacing="4" VerticalOptions="End">
+                                <Label Text="{Binding CurrentData.Ultrasonic2, TargetNullValue='0.0', StringFormat='{0:F1}'}" 
+                                       FontSize="32" FontAttributes="Bold" TextColor="{StaticResource OnSurface}" />
+                                <Label Text="M" FontSize="12" TextColor="{StaticResource Outline}" VerticalOptions="End" Margin="0,0,0,6"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Frame>
+
+                <!-- Obstacle Sensor -->
+                <Frame BackgroundColor="{StaticResource SurfaceContainerHighest}" 
+                       CornerRadius="8" Padding="20" BorderColor="Transparent">
+                    <Grid>
+                        <BoxView Color="{StaticResource Error}" WidthRequest="4" 
+                                 HorizontalOptions="Start" VerticalOptions="Fill" Margin="-20,-20,0,-20"/>
+                        <VerticalStackLayout Spacing="12">
+                            <Grid>
+                                <Label Text="OBSTACLE SENSOR" FontSize="10" CharacterSpacing="2" 
+                                       TextColor="{StaticResource Outline}" HorizontalOptions="Start" />
+                                <Frame BackgroundColor="{StaticResource SurfaceContainerHighestAlpha}" Padding="8,4" 
+                                       CornerRadius="4" HorizontalOptions="End" BorderColor="Transparent">
+                                    <Label Text="ACTIVE" FontSize="10" TextColor="{StaticResource Error}" />
+                                </Frame>
+                            </Grid>
+                            <HorizontalStackLayout Spacing="4" VerticalOptions="End">
+                                <Label Text="{Binding CurrentData.Obstacle, TargetNullValue='0.0', StringFormat='{0:F1}'}" 
+                                       FontSize="32" FontAttributes="Bold" TextColor="{StaticResource OnSurface}" />
+                                <Label Text="M" FontSize="12" TextColor="{StaticResource Outline}" VerticalOptions="End" Margin="0,0,0,6"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Frame>
             </VerticalStackLayout>
             
             <!-- Terminal -->

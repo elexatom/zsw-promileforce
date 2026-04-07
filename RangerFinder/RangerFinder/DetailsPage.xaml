@@ -92,6 +92,87 @@
                     </VerticalStackLayout>
                 </VerticalStackLayout>
             </Frame>
+
+            <!-- WAVESHARE LASER (Lidar 2) -->
+            <Frame BackgroundColor="{StaticResource SurfaceContainerLow}" 
+                   HasShadow="False" CornerRadius="8" Padding="0" BorderColor="Transparent">
+                <VerticalStackLayout>
+                    <Grid Padding="24,12" BackgroundColor="{StaticResource SurfaceContainerHighest}">
+                        <Label Text="LASER GAMMA" FontSize="10" CharacterSpacing="2" 
+                               TextColor="{StaticResource Tertiary}" HorizontalOptions="Start" />
+                        <Label Text="SENSOR: LASER 2" FontSize="9" 
+                               TextColor="{StaticResource Outline}" HorizontalOptions="End" />
+                    </Grid>
+                    <VerticalStackLayout Padding="32" Spacing="24">
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="{Binding CurrentData.Lidar2, TargetNullValue='0.00', StringFormat='{0:F2}'}" 
+                                   FontSize="60" FontAttributes="Bold" TextColor="{StaticResource OnSurface}" />
+                            <Label Text="m" FontSize="24" TextColor="{StaticResource OutlineVariant}" 
+                                   VerticalOptions="End" Margin="0,0,0,12" />
+                        </HorizontalStackLayout>
+                        <ProgressBar Progress="{Binding CurrentData.Lidar2, TargetNullValue='0'}" 
+                                     ProgressColor="{StaticResource Tertiary}" />
+                        <Grid>
+                            <Label Text="0.00m" FontSize="9" TextColor="{StaticResource OutlineVariant}" HorizontalOptions="Start"/>
+                            <Label Text="5.00m" FontSize="9" TextColor="{StaticResource OutlineVariant}" HorizontalOptions="End"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- SECONDARY (Ultrasonic 2) -->
+            <Frame BackgroundColor="{StaticResource SurfaceContainerLow}" 
+                   HasShadow="False" CornerRadius="8" Padding="0" BorderColor="Transparent">
+                <VerticalStackLayout>
+                    <Grid Padding="24,12" BackgroundColor="{StaticResource SurfaceContainerHighest}">
+                        <Label Text="US DELTA" FontSize="10" CharacterSpacing="2" 
+                               TextColor="{StaticResource Magenta}" HorizontalOptions="Start" />
+                        <Label Text="SENSOR: ULTRASONIC 2" FontSize="9" 
+                               TextColor="{StaticResource Outline}" HorizontalOptions="End" />
+                    </Grid>
+                    <VerticalStackLayout Padding="32" Spacing="24">
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="{Binding CurrentData.Ultrasonic2, TargetNullValue='0.00', StringFormat='{0:F2}'}" 
+                                   FontSize="60" FontAttributes="Bold" TextColor="{StaticResource OnSurface}" />
+                            <Label Text="m" FontSize="24" TextColor="{StaticResource OutlineVariant}" 
+                                   VerticalOptions="End" Margin="0,0,0,12" />
+                        </HorizontalStackLayout>
+                        <ProgressBar Progress="{Binding CurrentData.Ultrasonic2, TargetNullValue='0'}" 
+                                     ProgressColor="{StaticResource Magenta}" />
+                        <Grid>
+                            <Label Text="0.00m" FontSize="9" TextColor="{StaticResource OutlineVariant}" HorizontalOptions="Start"/>
+                            <Label Text="5.00m" FontSize="9" TextColor="{StaticResource OutlineVariant}" HorizontalOptions="End"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- OBSTACLE SENSOR -->
+            <Frame BackgroundColor="{StaticResource SurfaceContainerLow}" 
+                   HasShadow="False" CornerRadius="8" Padding="0" BorderColor="Transparent">
+                <VerticalStackLayout>
+                    <Grid Padding="24,12" BackgroundColor="{StaticResource SurfaceContainerHighest}">
+                        <Label Text="OBSTACLE EPSILON" FontSize="10" CharacterSpacing="2" 
+                               TextColor="{StaticResource Error}" HorizontalOptions="Start" />
+                        <Label Text="SENSOR: OBSTACLE" FontSize="9" 
+                               TextColor="{StaticResource Outline}" HorizontalOptions="End" />
+                    </Grid>
+                    <VerticalStackLayout Padding="32" Spacing="24">
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="{Binding CurrentData.Obstacle, TargetNullValue='0.00', StringFormat='{0:F2}'}" 
+                                   FontSize="60" FontAttributes="Bold" TextColor="{StaticResource OnSurface}" />
+                            <Label Text="m" FontSize="24" TextColor="{StaticResource OutlineVariant}" 
+                                   VerticalOptions="End" Margin="0,0,0,12" />
+                        </HorizontalStackLayout>
+                        <ProgressBar Progress="{Binding CurrentData.Obstacle, TargetNullValue='0'}" 
+                                     ProgressColor="{StaticResource Error}" />
+                        <Grid>
+                            <Label Text="0.00m" FontSize="9" TextColor="{StaticResource OutlineVariant}" HorizontalOptions="Start"/>
+                            <Label Text="5.00m" FontSize="9" TextColor="{StaticResource OutlineVariant}" HorizontalOptions="End"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
             
         </VerticalStackLayout>
     </ScrollView>
