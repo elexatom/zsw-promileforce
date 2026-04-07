@@ -51,6 +51,9 @@ namespace RangerFinder.ViewModels
         private string _connectionStatus = "Disconnected";
 
         [ObservableProperty]
+        private string _connectedDeviceName = "Unknown Device";
+
+        [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsNotConnected))]
         [NotifyPropertyChangedFor(nameof(ConnectButtonText))]
         private bool _isConnected;
@@ -109,6 +112,7 @@ namespace RangerFinder.ViewModels
             // TODO Backend: StopScanningAsync()
             IsScanning = false;
             OnPropertyChanged(nameof(ConnectButtonText));
+            ConnectedDeviceName = device.Name;
 
             // TODO Backend: upravit _bluetoothService.ConnectAsync() aby přijímalo device.MacAddress nebo device instanci
             await ConnectAsync();

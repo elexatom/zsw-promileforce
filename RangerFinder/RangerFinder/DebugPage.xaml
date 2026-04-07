@@ -83,7 +83,7 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
 
-                    <VerticalStackLayout Padding="8" Spacing="8">
+                    <VerticalStackLayout Padding="8" Spacing="8" IsVisible="{Binding IsConnected}">
                         <Grid Padding="16" BackgroundColor="{StaticResource SurfaceContainerHighest}">
                             <HorizontalStackLayout Spacing="16" VerticalOptions="Center">
                                 <Frame BackgroundColor="{StaticResource SurfaceContainerHighestAlpha}" 
@@ -91,13 +91,12 @@
                                     <Label Text="⚙️" HorizontalOptions="Center" VerticalOptions="Center" />
                                 </Frame>
                                 <VerticalStackLayout VerticalOptions="Center">
-                                    <Label Text="RangeFinder_RPi_01" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource Primary}" />
-                                    <Label Text="{Binding ConnectionStatus, StringFormat='MAC: 00:1A:2B:3C:4D:5E • {0}'}" 
+                                    <Label Text="{Binding ConnectedDeviceName}" FontSize="12" FontAttributes="Bold" TextColor="{StaticResource Primary}" />
+                                    <Label Text="{Binding ConnectionStatus, StringFormat='STATUS: {0}'}" 
                                            FontSize="9" TextColor="{StaticResource Outline}" TextTransform="Uppercase"/>
                                 </VerticalStackLayout>
                             </HorizontalStackLayout>
                             <Button Text="DISCONNECT" Command="{Binding DisconnectCommand}" 
-                                    IsVisible="{Binding IsConnected}"
                                     BackgroundColor="Transparent" TextColor="{StaticResource Error}"
                                     BorderColor="{StaticResource Error}" BorderWidth="1"
                                     FontSize="9" FontAttributes="Bold" CornerRadius="4" Padding="12,6" 
