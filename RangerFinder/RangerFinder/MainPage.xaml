@@ -175,10 +175,10 @@
                             <BoxView Color="{StaticResource Secondary}" WidthRequest="8" HeightRequest="8" CornerRadius="4" />
                         </HorizontalStackLayout>
                     </Grid>
-                    <CollectionView Grid.Row="1" ItemsSource="{Binding SensorHistory}" Margin="16">
+                    <CollectionView Grid.Row="1" ItemsSource="{Binding ConsoleLogs}" Margin="16">
                         <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="models:SensorData">
-                                <Label Text="{Binding Obstacle, StringFormat='[RX_PKT] OBS: {0:F2}m | LIDAR1: {1:F2}m'}" 
+                            <DataTemplate x:DataType="x:String">
+                                <Label Text="{Binding .}" FontFamily="Consolas"
                                        FontSize="10" TextColor="{StaticResource OnSurfaceVariant}" Margin="0,2" />
                             </DataTemplate>
                         </CollectionView.ItemTemplate>

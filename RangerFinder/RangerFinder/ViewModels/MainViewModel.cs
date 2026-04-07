@@ -13,6 +13,8 @@ namespace RangerFinder.ViewModels
         private readonly IBluetoothService _bluetoothService;
 
         public System.Collections.ObjectModel.ObservableCollection<SensorData> SensorHistory { get; } = new();
+        public System.Collections.ObjectModel.ObservableCollection<string> ConsoleLogs { get; } = new();
+        private DateTime _lastLogTime = DateTime.MinValue;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(MinDistance))]
@@ -157,6 +159,18 @@ namespace RangerFinder.ViewModels
                 {
                     SensorHistory.RemoveAt(0);
                 }
+
+                if ((DateTime.Now - _lastLogTime).TotalMilliseconds > 200)
+                {
+                    _lastLogTime = DateTime.Now;
+                    string logLine = $"[RX_PKT] OBS: {e.Obstacle:F2}m | LIDAR1: {e.Lidar1:F2}m | US1: {e.Ultrasonic1:F2}m";
+                    ConsoleLogs.Insert(0, logLine);
+                    if (ConsoleLogs.Count > 30)
+                    {
+                        ConsoleLogs.RemoveAt(ConsoleLogs.Count - 1);
+                    }
+                }
+
                 OnPropertyChanged(nameof(AverageObstacle));
             });
         }
