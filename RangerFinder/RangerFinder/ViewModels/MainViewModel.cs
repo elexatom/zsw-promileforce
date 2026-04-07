@@ -153,7 +153,7 @@ namespace RangerFinder.ViewModels
             {
                 CurrentData = e;
                 SensorHistory.Add(e);
-                if (SensorHistory.Count > 100)
+                if (SensorHistory.Count > 30)
                 {
                     SensorHistory.RemoveAt(0);
                 }

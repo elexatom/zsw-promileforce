@@ -14,9 +14,6 @@ namespace RangerFinder
         {
             if (History == null || History.Count < 2)
             {
-                // Draw a placeholder background so it's not totally empty
-                canvas.FillColor = Color.FromArgb("#fafffa");
-                canvas.FillRectangle(dirtyRect);
                 return;
             }
 
@@ -36,11 +33,8 @@ namespace RangerFinder
             // Add a small padding to the max value so lines don't hit the very top edge
             maxValue *= 1.1;
 
-            canvas.FillColor = Colors.White;
-            canvas.FillRectangle(dirtyRect);
-
             // Draw grid lines
-            canvas.StrokeColor = Colors.LightGray;
+            canvas.StrokeColor = Color.FromArgb("#414754"); // OutlineVariant
             canvas.StrokeSize = 1;
             canvas.StrokeDashPattern = new float[] { 5, 5 };
             for(int i = 1; i <= 4; i++)
@@ -72,10 +66,10 @@ namespace RangerFinder
             }
 
             // Draw each sensor
-            DrawSensorLine(d => d.Ultrasonic1, Colors.Red);
-            DrawSensorLine(d => d.Ultrasonic2, Colors.Blue);
-            DrawSensorLine(d => d.Lidar1, Colors.Green);
-            DrawSensorLine(d => d.Lidar2, Colors.Orange);
+            DrawSensorLine(d => d.Lidar1, Color.FromArgb("#00daf3")); // Primary
+            DrawSensorLine(d => d.Ultrasonic1, Color.FromArgb("#48ddbc")); // Secondary
+            DrawSensorLine(d => d.Lidar2, Color.FromArgb("#00e1ae")); // Tertiary
+            DrawSensorLine(d => d.Ultrasonic2, Color.FromArgb("#d600aa")); // Magenta
         }
     }
 }
