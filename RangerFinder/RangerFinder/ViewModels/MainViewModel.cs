@@ -72,6 +72,24 @@ namespace RangerFinder.ViewModels
         {
             _bluetoothService = bluetoothService;
             _bluetoothService.SensorDataReceived += OnSensorDataReceived;
+            _bluetoothService.DeviceFound += OnDeviceFound;
+        }
+
+        private void OnDeviceFound(object sender, (string Name, Guid Id) e)
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                // Zkontrolujeme, jestli uz zarizeni nahodou v listu neni
+                if (!DiscoveredDevices.Any(d => d.DeviceId == e.Id))
+                {
+                    DiscoveredDevices.Add(new DiscoveredDevice
+                    {
+                        Name = e.Name,
+                        DeviceId = e.Id,
+                        IsMock = false
+                    });
+                }
+            });
         }
 
         [RelayCommand]
@@ -85,7 +103,7 @@ namespace RangerFinder.ViewModels
             {
                 if (IsScanning)
                 {
-                    // TODO Backend: StopScanningAsync()
+                    await _bluetoothService.StopScanningAsync();
                     IsScanning = false;
                     OnPropertyChanged(nameof(ConnectButtonText));
                     return;
@@ -96,11 +114,9 @@ namespace RangerFinder.ViewModels
                 
                 DiscoveredDevices.Clear();
                 // Permanent fallback option
-                DiscoveredDevices.Add(new DiscoveredDevice { Name = "mock rpi0", MacAddress = "00:00:00:00:00:00", IsMock = true });
+                DiscoveredDevices.Add(new DiscoveredDevice { Name = "mock rpi0", DeviceId = Guid.Empty, IsMock = true });
 
-                // TODO Backend: zavolat _bluetoothService.StartScanningAsync()
-                // TODO Backend: zaregistrovat event _bluetoothService.DeviceFound += OnDeviceFound
-                // A jakmile přijde event, udělat MainThread.BeginInvokeOnMainThread(() => DiscoveredDevices.Add(device));
+                await _bluetoothService.StartScanningAsync();
             }
         }
 
@@ -109,20 +125,18 @@ namespace RangerFinder.ViewModels
         {
             if (device == null) return;
             
-            // TODO Backend: StopScanningAsync()
+            await _bluetoothService.StopScanningAsync();
             IsScanning = false;
             OnPropertyChanged(nameof(ConnectButtonText));
             ConnectedDeviceName = device.Name;
 
-            // TODO Backend: upravit _bluetoothService.ConnectAsync() aby přijímalo device.MacAddress nebo device instanci
-            await ConnectAsync();
+            await ConnectAsync(device.DeviceId);
         }
 
-        [RelayCommand]
-        private async Task ConnectAsync()
+        private async Task ConnectAsync(Guid deviceId)
         {
             ConnectionStatus = "Connecting...";
-            await _bluetoothService.ConnectAsync();
+            await _bluetoothService.ConnectAsync(deviceId);
             ConnectionStatus = "Connected";
             IsConnected = true;
         }

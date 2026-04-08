@@ -1,16 +1,37 @@
 using RangerFinder.Core.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace RangerFinder.Core.Services
 {
     public class MockBluetoothService : IBluetoothService
     {
         public event EventHandler<SensorData> SensorDataReceived;
-        private bool _isconnected;
+        public event EventHandler<(string Name, Guid Id)> DeviceFound;
 
-        public Task ConnectAsync()
+        private bool _isconnected;
+        private bool _isscanning;
+
+        public async Task StartScanningAsync()
+        {
+            _isscanning = true;
+            _ = Task.Run(async () =>
+            {
+                await Task.Delay(1000);
+                if (_isscanning)
+                {
+                    DeviceFound?.Invoke(this, ("mock rpi0", Guid.NewGuid()));
+                }
+            });
+        }
+
+        public Task StopScanningAsync()
+        {
+            _isscanning = false;
+            return Task.CompletedTask;
+        }
+
+        public Task ConnectAsync(Guid deviceId)
         {
             _isconnected = true;
             _ = Task.Run(CreateRandom);
