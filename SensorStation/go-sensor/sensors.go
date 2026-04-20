@@ -47,7 +47,6 @@ func InitSensors(data *SensorData) func() {
 		log.Fatalf("Failed to initialize I2C: %v", err)
 	}
 
-	// TODO: implement VL53L0X XSHUT pin function
 	tofSensor := vl53l0x.NewVl53l0x()
 	err = tofSensor.Reset(i2cBus)
 	if err != nil {
