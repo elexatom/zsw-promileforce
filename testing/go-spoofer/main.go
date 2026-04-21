@@ -20,7 +20,7 @@ import (
 var adapter = bluetooth.DefaultAdapter
 var sensorChar bluetooth.Characteristic
 
-var SecretKey = []byte("ZswPromileForceZswPromileForce32") // Totožný klíč jako v Secrets.cs
+var SecretKey = []byte("1ba426e89d017cadacd762f2bea6b699") // Totožný klíč jako v Secrets.cs
 
 func Encrypt(plaintext string) string {
 	block, err := aes.NewCipher(SecretKey)

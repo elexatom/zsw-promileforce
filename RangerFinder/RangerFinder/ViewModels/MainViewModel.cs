@@ -10,7 +10,9 @@ namespace RangerFinder.ViewModels
 {
     public partial class MainViewModel : ObservableObject
     {
-        private readonly IBluetoothService _bluetoothService;
+        private readonly BluetoothService _realBluetoothService;
+        private readonly MockBluetoothService _mockBluetoothService;
+        private IBluetoothService _activeBluetoothService;
 
         public System.Collections.ObjectModel.ObservableCollection<SensorData> SensorHistory { get; } = new();
         public System.Collections.ObjectModel.ObservableCollection<string> ConsoleLogs { get; } = new();
@@ -68,11 +70,18 @@ namespace RangerFinder.ViewModels
 
         public double AverageObstacle => SensorHistory.Count == 0 ? 0 : SensorHistory.Average(s => s.Obstacle);
 
-        public MainViewModel(IBluetoothService bluetoothService)
+        public MainViewModel(BluetoothService realBluetoothService, MockBluetoothService mockBluetoothService)
         {
-            _bluetoothService = bluetoothService;
-            _bluetoothService.SensorDataReceived += OnSensorDataReceived;
-            _bluetoothService.DeviceFound += OnDeviceFound;
+            _realBluetoothService = realBluetoothService;
+            _mockBluetoothService = mockBluetoothService;
+            
+            _activeBluetoothService = _realBluetoothService;
+
+            _realBluetoothService.SensorDataReceived += OnSensorDataReceived;
+            _realBluetoothService.DeviceFound += OnDeviceFound;
+            
+            _mockBluetoothService.SensorDataReceived += OnSensorDataReceived;
+            _mockBluetoothService.DeviceFound += OnDeviceFound;
         }
 
         private void OnDeviceFound(object sender, (string Name, Guid Id) e)
@@ -103,7 +112,7 @@ namespace RangerFinder.ViewModels
             {
                 if (IsScanning)
                 {
-                    await _bluetoothService.StopScanningAsync();
+                    await _activeBluetoothService.StopScanningAsync();
                     IsScanning = false;
                     OnPropertyChanged(nameof(ConnectButtonText));
                     return;
@@ -116,7 +125,8 @@ namespace RangerFinder.ViewModels
                 // Permanent fallback option
                 DiscoveredDevices.Add(new DiscoveredDevice { Name = "mock rpi0", DeviceId = Guid.Empty, IsMock = true });
 
-                await _bluetoothService.StartScanningAsync();
+                _activeBluetoothService = _realBluetoothService;
+                await _activeBluetoothService.StartScanningAsync();
             }
         }
 
@@ -125,10 +135,19 @@ namespace RangerFinder.ViewModels
         {
             if (device == null) return;
             
-            await _bluetoothService.StopScanningAsync();
+            await _activeBluetoothService.StopScanningAsync();
             IsScanning = false;
             OnPropertyChanged(nameof(ConnectButtonText));
             ConnectedDeviceName = device.Name;
+
+            if (device.IsMock)
+            {
+                _activeBluetoothService = _mockBluetoothService;
+            }
+            else
+            {
+                _activeBluetoothService = _realBluetoothService;
+            }
 
             await ConnectAsync(device.DeviceId);
         }
@@ -136,7 +155,7 @@ namespace RangerFinder.ViewModels
         private async Task ConnectAsync(Guid deviceId)
         {
             ConnectionStatus = "Connecting...";
-            await _bluetoothService.ConnectAsync(deviceId);
+            await _activeBluetoothService.ConnectAsync(deviceId);
             ConnectionStatus = "Connected";
             IsConnected = true;
         }
@@ -144,7 +163,7 @@ namespace RangerFinder.ViewModels
         [RelayCommand]
         private async Task DisconnectAsync()
         {
-            await _bluetoothService.DisconnectAsync();
+            await _activeBluetoothService.DisconnectAsync();
             ConnectionStatus = "Disconnected";
             IsConnected = false;
         }
