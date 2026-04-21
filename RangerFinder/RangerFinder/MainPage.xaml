@@ -50,7 +50,7 @@
                                  HorizontalOptions="Start" VerticalOptions="Fill" Margin="-20,-20,0,-20"/>
                         <VerticalStackLayout Spacing="12">
                             <Grid>
-                                <Label Text="HC-SR04 ULTRASONIC" FontSize="10" CharacterSpacing="2" 
+                                <Label Text="PRIMARY ULTRASONIC" FontSize="10" CharacterSpacing="2" 
                                        TextColor="{StaticResource Outline}" HorizontalOptions="Start" />
                                 <Frame BackgroundColor="{StaticResource SurfaceContainerHighestAlpha}" Padding="8,4" 
                                        CornerRadius="4" HorizontalOptions="End" BorderColor="Transparent">
@@ -74,7 +74,7 @@
                                  HorizontalOptions="Start" VerticalOptions="Fill" Margin="-20,-20,0,-20"/>
                         <VerticalStackLayout Spacing="12">
                             <Grid>
-                                <Label Text="WAVESHARE LASER" FontSize="10" CharacterSpacing="2" 
+                                <Label Text="SECONDARY TOF" FontSize="10" CharacterSpacing="2" 
                                        TextColor="{StaticResource Outline}" HorizontalOptions="Start" />
                                 <Frame BackgroundColor="{StaticResource SurfaceContainerHighestAlpha}" Padding="8,4" 
                                        CornerRadius="4" HorizontalOptions="End" BorderColor="Transparent">
@@ -98,7 +98,7 @@
                                  HorizontalOptions="Start" VerticalOptions="Fill" Margin="-20,-20,0,-20"/>
                         <VerticalStackLayout Spacing="12">
                             <Grid>
-                                <Label Text="VL53LDK TOF" FontSize="10" CharacterSpacing="2" 
+                                <Label Text="PRIMARY TOF" FontSize="10" CharacterSpacing="2" 
                                        TextColor="{StaticResource Outline}" HorizontalOptions="Start" />
                                 <Frame BackgroundColor="{StaticResource SurfaceContainerHighestAlpha}" Padding="8,4" 
                                        CornerRadius="4" HorizontalOptions="End" BorderColor="Transparent">

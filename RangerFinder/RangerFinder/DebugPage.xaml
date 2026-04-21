@@ -10,9 +10,9 @@
         <VerticalStackLayout Padding="24" Spacing="24">
             
             <!-- Connection Cards -->
-            <Grid ColumnDefinitions="*, *" ColumnSpacing="16">
+            <Grid>
                 <!-- System Connection -->
-                <Frame Grid.Column="0" BackgroundColor="{StaticResource SurfaceContainerLow}" 
+                <Frame BackgroundColor="{StaticResource SurfaceContainerLow}" 
                        HasShadow="False" CornerRadius="8" Padding="16" BorderColor="Transparent" HeightRequest="120">
                     <VerticalStackLayout Spacing="8">
                         <Label Text="SYSTEM CONNECTION" FontSize="8" CharacterSpacing="2" 
@@ -24,21 +24,6 @@
                     </VerticalStackLayout>
                 </Frame>
 
-                <!-- Signal Strength -->
-                <Frame Grid.Column="1" BackgroundColor="{StaticResource SurfaceContainerLow}" 
-                       HasShadow="False" CornerRadius="8" Padding="16" BorderColor="Transparent" HeightRequest="120">
-                    <VerticalStackLayout Spacing="8">
-                        <Label Text="SIGNAL STRENGTH" FontSize="8" CharacterSpacing="2" 
-                               TextColor="{StaticResource Outline}" />
-                        <HorizontalStackLayout Spacing="4">
-                            <Label Text="-42" FontSize="18" FontAttributes="Bold" TextColor="{StaticResource OnSurface}" />
-                            <Label Text="dBm" FontSize="10" TextColor="{StaticResource Outline}" VerticalOptions="End" Margin="0,0,0,3"/>
-                        </HorizontalStackLayout>
-                        <ProgressBar Progress="0.85" ProgressColor="{StaticResource Primary}" Margin="0,8,0,0"/>
-                        <Label Text="RSSI_OPTIMAL_STABLE" FontSize="8" CharacterSpacing="1"
-                               TextColor="{StaticResource Outline}" TextTransform="Uppercase" VerticalOptions="EndAndExpand"/>
-                    </VerticalStackLayout>
-                </Frame>
             </Grid>
 
             <!-- Scanning Hub -->
