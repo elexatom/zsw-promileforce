@@ -23,10 +23,9 @@ namespace RangerFinder.Core.Security
                 throw new ArgumentException("Payload is too short to be a valid AES-GCM packet.");
             }
 
-            // Go's cipher.NewGCM(...) appends (Nonce) + (Ciphertext) + (Tag)
-            // Wait, Go's aesgcm.Seal(nonce, nonce, plaintext, nil) actually results in:
-            // Output = Nonce (12 bytes) + CipherText (variable) + Tag (16 bytes)
-            
+            if (Secrets.EncryptionKey == null)
+                throw new ArgumentException("Encryption key is not set.");
+
             byte[] keyBytes = Encoding.UTF8.GetBytes(Secrets.EncryptionKey);
             if (keyBytes.Length != 32)
                 throw new ArgumentException("Key must be exactly 32 bytes for AES-256.");
