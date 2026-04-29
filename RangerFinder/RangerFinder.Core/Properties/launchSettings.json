@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "RangerFinder.Core": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "key": "1ba426e89d017cadacd762f2bea6b699"
+      }
+    }
+  }
+}
